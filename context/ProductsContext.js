@@ -1,32 +1,32 @@
-import React, { createContext, useEffect, useState } from 'react'
-import { api } from '../helpers/helpers'
+import React, { createContext, useEffect, useState } from "react";
+import { api } from "../helpers/helpers";
 
-const ProductsContext = createContext()
+const ProductsContext = createContext();
 
 function ProductsProvider(props) {
-  const [products, setProducts] = useState(null)
+  const [products, setProducts] = useState(null);
 
   async function getProducts() {
     try {
-      const response = await fetch(`${api}/products`)
-      const data = await response.json()
-      console.log(data)
-      setProducts(data)
+      const response = await fetch(`${api}/products`);
+      const data = await response.json();
+      console.log(data);
+      setProducts(data.products);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
 
   useEffect(() => {
-    getProducts()
-  }, [])
+    getProducts();
+  }, []);
 
   return (
     <ProductsContext.Provider value={{ products, getProducts }}>
       {props.children}
     </ProductsContext.Provider>
-  )
+  );
 }
 
-export default ProductsContext
-export { ProductsProvider }
+export default ProductsContext;
+export { ProductsProvider };

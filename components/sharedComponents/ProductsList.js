@@ -1,17 +1,27 @@
-import Image from 'next/image'
-import React, { Suspense, useContext, useEffect, useState } from 'react'
-import ProductsContext from '../../context/ProductsContext'
+import Image from "next/image";
+import React, { Suspense, useContext, useEffect, useState } from "react";
+import ProductsContext from "../../context/ProductsContext";
 
-function FreaturedProducts({ componentTitle }) {
-  const { products } = useContext(ProductsContext)
+function ProductsList({ componentTitle, limit, showSorting }) {
+  const { products } = useContext(ProductsContext);
+  const [limitProductsRange, setLimitProductsRange] = useState([]);
+
+  useEffect(() => {
+    setLimitProductsRange(
+      products && limit ? products.slice(0, limit) : products
+    );
+  }, []);
+
+  // const limitProductsRange =
+  //   products && limit ? products.slice(0, limit) : products;
 
   return (
     <Suspense fallback="Loading...">
-      <div className="container ">
+      <div className="container mb-5">
         {componentTitle && <h2>{componentTitle}</h2>}
         <div className="featuredContainer">
           {products &&
-            products.products.map((product) => {
+            products.slice(0, limit).map((product) => {
               return (
                 <div className="card" key={product.id}>
                   {product.images[0] && (
@@ -30,12 +40,12 @@ function FreaturedProducts({ componentTitle }) {
                     </p>
                   </div>
                 </div>
-              )
+              );
             })}
         </div>
       </div>
     </Suspense>
-  )
+  );
 }
 
-export default FreaturedProducts
+export default ProductsList;
