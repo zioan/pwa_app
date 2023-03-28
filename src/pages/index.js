@@ -1,15 +1,22 @@
 import Head from "next/head";
 import { useContext, useEffect, useState } from "react";
 import ProductsList from "../../components/sharedComponents/ProductsList";
+import ProductsContext from "../../context/ProductsContext";
 import CookieContext from "../../context/CookieContext";
+import { api } from "../../helpers/helpers";
 
-export default function Home() {
+function Home({ products }) {
+  const { setProductsList } = useContext(ProductsContext);
   const { isCookieApproved } = useContext(CookieContext);
   const [isCookieAllowed, setIsCookieAllowed] = useState(false);
 
   useEffect(() => {
+    setProductsList(products);
+  }, [products, setProductsList]);
+
+  useEffect(() => {
     setIsCookieAllowed(isCookieAllowed);
-  }, [isCookieApproved]);
+  }, [isCookieApproved, setIsCookieAllowed, isCookieAllowed]);
 
   return (
     <>
@@ -26,8 +33,10 @@ export default function Home() {
             <iframe
               width="560"
               height="315"
-              src="https://www.youtube.com/embed/3r7d4qhKCp8"
+              src="https://www.youtube-nocookie.com/embed/3r7d4qhKCp8"
               title="YouTube video player"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
             ></iframe>
           </div>
         ) : (
@@ -37,3 +46,16 @@ export default function Home() {
     </>
   );
 }
+
+Home.getInitialProps = async function () {
+  try {
+    const response = await fetch(`${api}/products`);
+    const data = await response.json();
+    return { products: data.products };
+  } catch (error) {
+    console.error(error);
+    return { products: null };
+  }
+};
+
+export default Home;

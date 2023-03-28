@@ -1,28 +1,16 @@
-import React, { createContext, useEffect, useState } from "react";
-import { api } from "../helpers/helpers";
+import React, { createContext, useState } from "react";
 
 const ProductsContext = createContext();
 
 function ProductsProvider(props) {
   const [products, setProducts] = useState(null);
 
-  async function getProducts() {
-    try {
-      const response = await fetch(`${api}/products`);
-      const data = await response.json();
-      console.log(data);
-      setProducts(data.products);
-    } catch (error) {
-      console.log(error);
-    }
+  function setProductsList(productsData) {
+    setProducts(productsData);
   }
 
-  useEffect(() => {
-    getProducts();
-  }, []);
-
   return (
-    <ProductsContext.Provider value={{ products, getProducts }}>
+    <ProductsContext.Provider value={{ products, setProductsList }}>
       {props.children}
     </ProductsContext.Provider>
   );

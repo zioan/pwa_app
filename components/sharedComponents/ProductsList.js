@@ -1,32 +1,23 @@
 import Image from "next/image";
-import React, { Suspense, useContext, useEffect, useState } from "react";
+import Link from "next/link";
+import React, { useContext } from "react";
 import ProductsContext from "../../context/ProductsContext";
 
-function ProductsList({ componentTitle, limit, showSorting }) {
+function ProductsList({ componentTitle, limit }) {
   const { products } = useContext(ProductsContext);
-  const [limitProductsRange, setLimitProductsRange] = useState([]);
-
-  useEffect(() => {
-    setLimitProductsRange(
-      products && limit ? products.slice(0, limit) : products
-    );
-  }, []);
-
-  // const limitProductsRange =
-  //   products && limit ? products.slice(0, limit) : products;
 
   return (
-    <Suspense fallback="Loading...">
-      <div className="container mb-5">
-        {componentTitle && <h2>{componentTitle}</h2>}
-        <div className="featuredContainer">
-          {products &&
-            products.slice(0, limit).map((product) => {
-              return (
-                <div className="card" key={product.id}>
+    <div className="container mb-5">
+      {componentTitle && <h2>{componentTitle}</h2>}
+      <div className="featuredContainer">
+        {products &&
+          products.slice(0, limit).map((product) => {
+            return (
+              <Link href={`/allproducts/${product.id}`} key={product.id}>
+                <div className="card">
                   {product.images[0] && (
                     <Image
-                      src={product.images[0]}
+                      src={product.thumbnail}
                       className="card-img-top"
                       alt={product.title}
                       width={50}
@@ -40,11 +31,11 @@ function ProductsList({ componentTitle, limit, showSorting }) {
                     </p>
                   </div>
                 </div>
-              );
-            })}
-        </div>
+              </Link>
+            );
+          })}
       </div>
-    </Suspense>
+    </div>
   );
 }
 
