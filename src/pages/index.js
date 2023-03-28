@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { Inter } from "next/font/google";
-import FreaturedProducts from "../../components/sharedComponents/FreaturedProducts";
+import ProductsList from "../../components/sharedComponents/ProductsList";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,7 +14,15 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <FreaturedProducts componentTitle={"Neuesten Produkte"} />
+        <ProductsList limit="8" componentTitle={"Neuesten Produkte"} />
+        <div className="ratio ratio-16x9 mb-5">
+          <iframe
+            width="560"
+            height="315"
+            src="https://www.youtube.com/embed/3r7d4qhKCp8"
+            title="YouTube video player"
+          ></iframe>
+        </div>
       </main>
     </>
   );
