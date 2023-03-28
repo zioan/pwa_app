@@ -11,7 +11,7 @@ function ProductsList({ componentTitle, limit }) {
       {componentTitle && <h2>{componentTitle}</h2>}
       <div className="featuredContainer">
         {products &&
-          products.slice(0, limit).map((product) => {
+          products.slice(0, limit || products.length).map((product) => {
             return (
               <Link href={`/allproducts/${product.id}`} key={product.id}>
                 <div className="card">
