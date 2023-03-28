@@ -1,10 +1,16 @@
 import Head from "next/head";
-import { Inter } from "next/font/google";
+import { useContext, useEffect, useState } from "react";
 import ProductsList from "../../components/sharedComponents/ProductsList";
-
-const inter = Inter({ subsets: ["latin"] });
+import CookieContext from "../../context/CookieContext";
 
 export default function Home() {
+  const { isCookieApproved } = useContext(CookieContext);
+  const [isCookieAllowed, setIsCookieAllowed] = useState(false);
+
+  useEffect(() => {
+    setIsCookieAllowed(isCookieAllowed);
+  }, [isCookieApproved]);
+
   return (
     <>
       <Head>
@@ -15,14 +21,18 @@ export default function Home() {
       </Head>
       <main>
         <ProductsList limit="8" componentTitle={"Neuesten Produkte"} />
-        <div className="ratio ratio-16x9 mb-5">
-          <iframe
-            width="560"
-            height="315"
-            src="https://www.youtube.com/embed/3r7d4qhKCp8"
-            title="YouTube video player"
-          ></iframe>
-        </div>
+        {isCookieApproved ? (
+          <div className="ratio ratio-16x9 mb-5">
+            <iframe
+              width="560"
+              height="315"
+              src="https://www.youtube.com/embed/3r7d4qhKCp8"
+              title="YouTube video player"
+            ></iframe>
+          </div>
+        ) : (
+          <h4>To view this content you must accept out Cookie Policy</h4>
+        )}
       </main>
     </>
   );
