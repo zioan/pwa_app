@@ -1,6 +1,5 @@
-
 $primary: #ef8631;
-@import '~bootstrap/scss/bootstrap.scss';
+@import "~bootstrap/scss/bootstrap.scss";
 
 * {
   box-sizing: border-box;
@@ -38,4 +37,8 @@ button {
       max-height: 150px;
     }
   }
+}
+
+.productsHighlight {
+  z-index: 999;
 }
