@@ -3,16 +3,11 @@ import { useContext, useEffect, useState } from "react";
 import ProductsList from "../../components/sharedComponents/ProductsList";
 import ProductsContext from "../../context/ProductsContext";
 import CookieContext from "../../context/CookieContext";
-import { api } from "../../helpers/helpers";
 
-function Home({ products }) {
-  const { setProductsList } = useContext(ProductsContext);
+function Home() {
+  const { products } = useContext(ProductsContext);
   const { isCookieApproved } = useContext(CookieContext);
   const [isCookieAllowed, setIsCookieAllowed] = useState(false);
-
-  useEffect(() => {
-    setProductsList(products);
-  }, [products, setProductsList]);
 
   useEffect(() => {
     setIsCookieAllowed(isCookieAllowed);
@@ -27,7 +22,11 @@ function Home({ products }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <ProductsList limit="8" componentTitle={"Neuesten Produkte"} />
+        <ProductsList
+          limit="8"
+          componentTitle={"Neuesten Produkte"}
+          products={products}
+        />
         {isCookieApproved ? (
           <div className="ratio ratio-16x9 mb-5">
             <iframe
@@ -46,16 +45,5 @@ function Home({ products }) {
     </>
   );
 }
-
-Home.getInitialProps = async function () {
-  try {
-    const response = await fetch(`${api}/products`);
-    const data = await response.json();
-    return { products: data.products };
-  } catch (error) {
-    console.error(error);
-    return { products: null };
-  }
-};
 
 export default Home;

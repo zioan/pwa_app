@@ -1,11 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import React, { useContext } from "react";
-import ProductsContext from "../../context/ProductsContext";
 
-function ProductsList({ componentTitle, limit }) {
-  const { products } = useContext(ProductsContext);
-
+function ProductsList({ componentTitle, limit, products }) {
   return (
     <div className="container mb-5">
       {componentTitle && <h2>{componentTitle}</h2>}

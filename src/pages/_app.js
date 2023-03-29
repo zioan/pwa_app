@@ -3,10 +3,11 @@ import "@/styles/globals.scss";
 import { ProductsProvider } from "../../context/ProductsContext";
 import { CookieProvider } from "../../context/CookieContext";
 import Layout from "../../components/Layout";
+import { api } from "../../helpers/helpers";
 
-export default function App({ Component, pageProps }) {
+function App({ Component, pageProps, products }) {
   return (
-    <ProductsProvider>
+    <ProductsProvider products={products}>
       <CookieProvider>
         <Layout>
           <Component {...pageProps} />
@@ -15,3 +16,16 @@ export default function App({ Component, pageProps }) {
     </ProductsProvider>
   );
 }
+
+App.getInitialProps = async function () {
+  try {
+    const response = await fetch(`${api}/products`);
+    const data = await response.json();
+    return { products: data.products };
+  } catch (error) {
+    console.error(error);
+    return { products: null };
+  }
+};
+
+export default App;

@@ -1,16 +1,16 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 
 const ProductsContext = createContext();
 
 function ProductsProvider(props) {
   const [products, setProducts] = useState(null);
 
-  function setProductsList(productsData) {
-    setProducts(productsData);
-  }
+  useEffect(() => {
+    setProducts(props.products);
+  }, [props.products]);
 
   return (
-    <ProductsContext.Provider value={{ products, setProductsList }}>
+    <ProductsContext.Provider value={{ products }}>
       {props.children}
     </ProductsContext.Provider>
   );

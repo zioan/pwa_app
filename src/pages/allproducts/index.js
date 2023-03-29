@@ -1,7 +1,10 @@
+import { useContext } from "react";
 import ProductsList from "../../../components/sharedComponents/ProductsList";
+import ProductsContext from "../../../context/ProductsContext";
 
-function allproducts() {
-  return <ProductsList componentTitle={"Alle Produkte"} />;
+function AllProducts() {
+  const { products } = useContext(ProductsContext);
+  return <ProductsList componentTitle={"Alle Produkte"} products={products} />;
 }
 
-export default allproducts;
+export default AllProducts;
