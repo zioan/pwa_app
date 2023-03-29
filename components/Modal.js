@@ -7,7 +7,7 @@ function Modal() {
 
   useEffect(() => {
     !isCookieApproved && setModalOpen(true);
-  }, []);
+  }, [isCookieApproved]);
 
   function allowCookie() {
     setCookie("allowYoutube", "true");
