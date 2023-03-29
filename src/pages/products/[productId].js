@@ -3,14 +3,14 @@ import { useRouter } from "next/router";
 import { useContext } from "react";
 import ProductsContext from "../../../context/ProductsContext";
 import { AiFillHeart } from "react-icons/ai";
-import { api } from "../../../helpers/helpers";
 
 function Product() {
   const router = useRouter();
   const { productId } = router.query;
   const { products } = useContext(ProductsContext);
 
-  console.log(products);
+  if (!products) return;
+
   const product = products.find(
     (product) => product.id === parseInt(productId)
   );
@@ -46,16 +46,5 @@ function Product() {
     </div>
   );
 }
-
-// Product.getInitialProps = async function () {
-//   try {
-//     const response = await fetch(`${api}/products`);
-//     const data = await response.json();
-//     return { products: data.products };
-//   } catch (error) {
-//     console.error(error);
-//     return { products: null };
-//   }
-// };
 
 export default Product;
