@@ -10,7 +10,7 @@ function ProductsList({ componentTitle, limit, products }) {
         {products &&
           products.slice(0, limit || products.length).map((product) => {
             return (
-              <Link href={`/allproducts/${product.id}`} key={product.id}>
+              <Link href={`/products/${product.id}`} key={product.id}>
                 <div className="card">
                   {product.images[0] && (
                     <Image
