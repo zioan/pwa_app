@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import React, { useContext } from "react";
+import React from "react";
 
 function ProductsList({ componentTitle, limit, products }) {
   return (
