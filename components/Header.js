@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { AiFillHeart } from "react-icons/ai";
+import Search from "./Search";
 
 function Header() {
   return (
@@ -12,15 +13,8 @@ function Header() {
       <Link href="/">
         <Image src="/icon-192x192.png" alt="logo" width={60} height={60} />
       </Link>
-      <Link href="/allproducts">Alle Produkte</Link>
-      <div className="input-group mb-3" style={{ width: "50%" }}>
-        <input
-          type="text"
-          className="form-control mt-3"
-          placeholder="Suchen"
-          aria-label="Suchen"
-        />
-      </div>
+      <Link href="/products">Alle Produkte</Link>
+      <Search />
       <Link href="/wishlist">
         <AiFillHeart size={40} />
       </Link>
