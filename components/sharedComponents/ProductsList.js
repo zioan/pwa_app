@@ -22,8 +22,26 @@ function ProductsList({ componentTitle, limit, products }) {
   }, [filteredProducts, startIndex, endIndex]);
 
   const handlePageClick = (pageNumber) => {
-    setCurrentPage(pageNumber);
+    if (
+      pageNumber > 0 ||
+      pageNumber < filteredProducts.length / productsPerPage
+    ) {
+      setCurrentPage(pageNumber);
+    }
   };
+
+  function isNextPageValid(pageNumber) {
+    return (
+      pageNumber + 1 > 0 ||
+      pageNumber + 1 < filteredProducts.length / productsPerPage
+    );
+  }
+  function isPrevPageValid(pageNumber) {
+    return (
+      pageNumber - 1 > 0 ||
+      pageNumber - 1 < filteredProducts.length / productsPerPage
+    );
+  }
 
   function handleSortChange(event) {
     const selectedValue = event.target.value;
@@ -83,14 +101,16 @@ function ProductsList({ componentTitle, limit, products }) {
             })}
       </div>
       {!limit && (
-        <div class="d-flex justify-content-center mt-4">
+        <div className="d-flex justify-content-center mt-4">
           <ul className="pagination">
             <li className="page-item">
               <a
                 className="page-link"
                 href="#"
                 aria-label="Previous"
-                onClick={() => handlePageClick(currentPage - 1)}
+                onClick={() =>
+                  currentPage > 1 && handlePageClick(currentPage - 1)
+                }
               >
                 <span aria-hidden="true">&laquo;</span>
               </a>
@@ -118,7 +138,10 @@ function ProductsList({ componentTitle, limit, products }) {
                 className="page-link"
                 href="#"
                 aria-label="Next"
-                onClick={() => handlePageClick(currentPage + 1)}
+                onClick={() =>
+                  currentPage < filteredProducts.length / productsPerPage &&
+                  handlePageClick(currentPage + 1)
+                }
               >
                 <span aria-hidden="true">&raquo;</span>
               </a>
