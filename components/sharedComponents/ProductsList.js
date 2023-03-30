@@ -5,9 +5,25 @@ import React, { useEffect, useState } from "react";
 function ProductsList({ componentTitle, limit, products }) {
   const [filteredProducts, setFilteredProducts] = useState([]);
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [currentProductsPerPage, setCurrentProductsPerPage] = useState([]);
+  const productsPerPage = 12;
+  const startIndex = (currentPage - 1) * productsPerPage;
+  const endIndex = startIndex + productsPerPage;
+
   useEffect(() => {
     setFilteredProducts(products);
+    setTotalPages(Math.ceil(products?.length / productsPerPage));
   }, [products]);
+
+  useEffect(() => {
+    setCurrentProductsPerPage(filteredProducts?.slice(startIndex, endIndex));
+  }, [filteredProducts, startIndex, endIndex]);
+
+  const handlePageClick = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
 
   function handleSortChange(event) {
     const selectedValue = event.target.value;
@@ -39,9 +55,9 @@ function ProductsList({ componentTitle, limit, products }) {
         )}
       </div>
       <div className="featuredContainer">
-        {filteredProducts &&
-          filteredProducts
-            .slice(0, limit || filteredProducts.length)
+        {currentProductsPerPage &&
+          currentProductsPerPage
+            .slice(0, limit || currentProductsPerPage.length)
             .map((product) => {
               return (
                 <Link href={`/products/${product.id}`} key={product.id}>
@@ -66,6 +82,50 @@ function ProductsList({ componentTitle, limit, products }) {
               );
             })}
       </div>
+      {!limit && (
+        <div class="d-flex justify-content-center mt-4">
+          <ul className="pagination">
+            <li className="page-item">
+              <a
+                className="page-link"
+                href="#"
+                aria-label="Previous"
+                onClick={() => handlePageClick(currentPage - 1)}
+              >
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+
+            {Array.from({ length: totalPages }).map((_, index) => (
+              <li
+                className={`page-item${
+                  index + 1 === currentPage ? " active" : ""
+                }`}
+                key={index}
+              >
+                <a
+                  className="page-link"
+                  href="#"
+                  onClick={() => handlePageClick(index + 1)}
+                >
+                  {index + 1}
+                </a>
+              </li>
+            ))}
+
+            <li className="page-item">
+              <a
+                className="page-link"
+                href="#"
+                aria-label="Next"
+                onClick={() => handlePageClick(currentPage + 1)}
+              >
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      )}
     </div>
   );
 }
