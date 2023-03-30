@@ -55,7 +55,13 @@ function Search() {
         onKeyDown={searchHandler}
       />
       {router.pathname !== "/products/search/[searchQuery]" && (
-        <ProductsHighlight products={suggestedProducts} showFavourite={false} />
+        <div>
+          {/* <div className="position-absolute top-100 w-100"> */}
+          <ProductsHighlight
+            products={suggestedProducts}
+            showFavourite={false}
+          />
+        </div>
       )}
     </div>
   );

@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { useContext } from "react";
 import ProductsContext from "../../../context/ProductsContext";
 import { AiFillHeart } from "react-icons/ai";
+import { addToWishlist } from "../../../helpers/wishlistHelper";
 
 function Product() {
   const router = useRouter();
@@ -20,7 +21,7 @@ function Product() {
   }
 
   function addProductToWishlist() {
-    localStorage.setItem("wishlist", JSON.stringify(product));
+    addToWishlist(product);
   }
 
   return (
@@ -37,7 +38,14 @@ function Product() {
           <h1>{product.title}</h1>
           <h2>$ {product.price}</h2>
           <button className="btn btn-primary">In der Warenkorb</button>
-          <AiFillHeart onClick={addProductToWishlist} size={40} className="" />
+          <button
+            onClick={addProductToWishlist}
+            data-bs-toggle="tooltip"
+            data-bs-placement="top"
+            title="Add to Wishlist"
+          >
+            <AiFillHeart size={40} />
+          </button>
         </div>
       </div>
       <div>

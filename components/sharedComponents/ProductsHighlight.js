@@ -2,36 +2,43 @@ import Image from "next/image";
 import Link from "next/link";
 import { AiFillHeart } from "react-icons/ai";
 
-function ProductsHighlight({ products, showFavourite }) {
+function ProductsHighlight({ products, showFavourite, removeFromWishlist }) {
   if (!products) return;
 
-  function addToFavoriteHandler() {
-    console.log("added to F.");
-  }
-
   return products.length ? (
-    <ul className="list-group position-absolute top-100 w-100 productsHighlight">
+    <ul className="list-group productsHighlight">
       <div className="border p-2 bg-white">
         {products.map((product) => {
           return (
             <div key={product.id}>
-              <Link href={`/products/${product.id}`}>
-                <li key={product.id} className="list-group-item d-flex gap-2">
+              <li key={product.id} className="list-group-item d-flex gap-2">
+                <Link href={`/products/${product.id}`}>
                   <Image
                     src={product.thumbnail}
                     width={50}
                     height={50}
                     alt={product.title}
                   />
-                  <div>
+                </Link>
+                <div>
+                  <Link href={`/products/${product.id}`}>
                     <h5>{product.title}</h5>
-                    <p>{product.description.substring(0, 20)}...</p>
-                  </div>
-                  {showFavourite && (
-                    <AiFillHeart size={40} onClick={addToFavoriteHandler} />
-                  )}
-                </li>
-              </Link>
+                  </Link>
+                  <p>{product.description.substring(0, 20)}...</p>
+                </div>
+                {showFavourite && (
+                  <button
+                    onClick={() =>
+                      showFavourite && removeFromWishlist(product.id)
+                    }
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    title="Remove from Wishlist"
+                  >
+                    <AiFillHeart size={40} />
+                  </button>
+                )}
+              </li>
             </div>
           );
         })}
