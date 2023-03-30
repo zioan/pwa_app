@@ -22,26 +22,8 @@ function ProductsList({ componentTitle, limit, products }) {
   }, [filteredProducts, startIndex, endIndex]);
 
   const handlePageClick = (pageNumber) => {
-    if (
-      pageNumber > 0 ||
-      pageNumber < filteredProducts.length / productsPerPage
-    ) {
-      setCurrentPage(pageNumber);
-    }
+    setCurrentPage(pageNumber);
   };
-
-  function isNextPageValid(pageNumber) {
-    return (
-      pageNumber + 1 > 0 ||
-      pageNumber + 1 < filteredProducts.length / productsPerPage
-    );
-  }
-  function isPrevPageValid(pageNumber) {
-    return (
-      pageNumber - 1 > 0 ||
-      pageNumber - 1 < filteredProducts.length / productsPerPage
-    );
-  }
 
   function handleSortChange(event) {
     const selectedValue = event.target.value;
