@@ -19,6 +19,9 @@ function ProductsList({ componentTitle, limit, products }) {
     return filteredProducts?.slice(startIndex, endIndex);
   }, [filteredProducts, startIndex, endIndex]);
 
+  const isPaginationNecessary = !limit && totalPages > 1;
+  const showProductsFilter = !limit;
+
   const handlePageClick = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -40,7 +43,7 @@ function ProductsList({ componentTitle, limit, products }) {
     <div className="container mb-5">
       <div className="d-flex justify-content-between align-items-center mb-4">
         {componentTitle && <h2>{componentTitle}</h2>}
-        {!limit && (
+        {showProductsFilter && (
           <select
             className="form-select"
             aria-label="Sort"
@@ -80,7 +83,7 @@ function ProductsList({ componentTitle, limit, products }) {
               );
             })}
       </div>
-      {!limit && (
+      {isPaginationNecessary && (
         <div className="d-flex justify-content-center mt-4">
           <ul className="pagination">
             <li className="page-item">
