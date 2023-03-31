@@ -1,24 +1,22 @@
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useMemo, useState } from "react";
 
 function ProductsList({ componentTitle, limit, products }) {
   const [filteredProducts, setFilteredProducts] = useState([]);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const [currentProductsPerPage, setCurrentProductsPerPage] = useState([]);
   const productsPerPage = 12;
   const startIndex = (currentPage - 1) * productsPerPage;
   const endIndex = startIndex + productsPerPage;
 
-  useEffect(() => {
+  const totalPages = useMemo(() => {
     setFilteredProducts(products);
-    setTotalPages(Math.ceil(products?.length / productsPerPage));
+    return Math.ceil(products?.length / productsPerPage);
   }, [products]);
 
-  useEffect(() => {
-    setCurrentProductsPerPage(filteredProducts?.slice(startIndex, endIndex));
+  const currentProductsPerPage = useMemo(() => {
+    return filteredProducts?.slice(startIndex, endIndex);
   }, [filteredProducts, startIndex, endIndex]);
 
   const handlePageClick = (pageNumber) => {
