@@ -41,13 +41,9 @@ function Search() {
   }
 
   return (
-    <div
-      className="input-group mb-3 position-relative"
-      style={{ width: "50%" }}
-    >
+    <div className="searchInputGroup">
       <input
         type="text"
-        className="form-control mt-3"
         placeholder="Suchen"
         aria-label="Suchen"
         value={searchQuery}

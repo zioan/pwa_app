@@ -1,4 +1,4 @@
-import Header from "./Header";
+import Navbar from "./Navbar";
 import Modal from "./Modal";
 import CookieContext from "../context/CookieContext";
 import { useContext } from "react";
@@ -6,10 +6,10 @@ import { useContext } from "react";
 function Layout({ children }) {
   const { isCookieApproved } = useContext(CookieContext);
   return (
-    <div className="container">
+    <div>
       {!isCookieApproved && <Modal />}
-      <Header />
-      {children}
+      <Navbar />
+      <div className="container content">{children}</div>
     </div>
   );
 }
