@@ -23,7 +23,7 @@ function Search() {
   //filter sugested products based on queryString
   useEffect(() => {
     if (products && searchQuery.length) {
-      setSuggestedProducts(searchHelper(products, searchQuery).slice(0, 3));
+      setSuggestedProducts(searchHelper(products, searchQuery));
     } else {
       setSuggestedProducts([]);
     }
@@ -50,15 +50,15 @@ function Search() {
         onChange={(evt) => setSearchQuery(evt.target.value)}
         onKeyDown={searchHandler}
       />
-      {router.pathname !== "/products/search/[searchQuery]" && (
-        <div>
-          {/* <div className="position-absolute top-100 w-100"> */}
-          <ProductsHighlight
-            products={suggestedProducts}
-            showFavourite={false}
-          />
-        </div>
-      )}
+      {router.pathname !== "/products/search/[searchQuery]" &&
+        suggestedProducts.length > 0 && (
+          <div className="suggestedProducts">
+            <ProductsHighlight
+              products={suggestedProducts}
+              showFavourite={false}
+            />
+          </div>
+        )}
     </div>
   );
 }

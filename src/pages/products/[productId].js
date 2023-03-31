@@ -25,19 +25,31 @@ function Product() {
   }
 
   return (
-    <div>
-      <div className="d-flex ">
+    <div className="productPage">
+      <div className="imageGroup">
         <Image
-          src={product.images[0]}
-          className=""
+          src={product.thumbnail}
           alt={product.title}
-          width={350}
-          height={350}
+          width={450}
+          height={450}
         />
-        <div>
-          <h1>{product.title}</h1>
-          <h2>$ {product.price}</h2>
-          <button className="btn btn-primary">In der Warenkorb</button>
+        <div className="productGallery">
+          {product.images.map((image) => {
+            return (
+              <Image
+                key={image}
+                src={image}
+                alt={product.title}
+                width={80}
+                height={80}
+              />
+            );
+          })}
+        </div>
+      </div>
+      <div className="productContent">
+        <div className="productHeaderGroup">
+          <h4 className="productTitle">{product.title}</h4>
           <button
             onClick={addProductToWishlist}
             data-bs-toggle="tooltip"
@@ -47,9 +59,9 @@ function Product() {
             <AiFillHeart size={40} />
           </button>
         </div>
-      </div>
-      <div>
-        <p>{product.description}</p>
+        <h4 className="productPrice">{product.price} &#8364;</h4>
+        <p className="productDescription">{product.description}</p>
+        <button className="btn btn-primary">In der Warenkorb</button>
       </div>
     </div>
   );

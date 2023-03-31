@@ -40,8 +40,8 @@ function ProductsList({ componentTitle, limit, products }) {
   }
 
   return (
-    <div className="container mb-5">
-      <div className="d-flex justify-content-between align-items-center mb-4">
+    <div className="container productsList">
+      <div className="headerGroup d-flex justify-content-between align-items-center mb-4">
         {componentTitle && <h2>{componentTitle}</h2>}
         {showProductsFilter && (
           <select
@@ -66,15 +66,15 @@ function ProductsList({ componentTitle, limit, products }) {
                     {product.images[0] && (
                       <Image
                         src={product.thumbnail}
-                        className="card-img-top"
                         alt={product.title}
-                        width={50}
-                        height={50}
+                        width={150}
+                        height={150}
                       />
                     )}
                     <div className="card-body">
                       <h5 className="card-title">{product.title}</h5>
-                      <p className="card-text">
+                      <p className="price">{product.price} &#8364;</p>
+                      <p className="description">
                         {product.description.substring(0, 20)}...
                       </p>
                     </div>
