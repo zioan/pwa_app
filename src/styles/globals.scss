@@ -128,6 +128,9 @@ nav {
       }
 
       .card-body {
+        .card-title {
+          font-size: 1rem;
+        }
         .price {
           font-weight: bold;
           margin-top: 1rem;
@@ -178,6 +181,11 @@ nav {
   gap: 4rem;
 
   .imageGroup {
+    img {
+      object-fit: cover;
+      object-position: center;
+    }
+
     .productGallery {
       margin-top: 1rem;
       display: flex;
