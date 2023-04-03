@@ -128,7 +128,7 @@ nav {
 
       .card-body {
         .card-title {
-          font-size: 1rem;
+          font-size: 0.8rem;
         }
         .price {
           font-weight: bold;
@@ -136,7 +136,7 @@ nav {
         }
 
         .description {
-          font-size: 0.8rem;
+          font-size: 0.6rem;
         }
       }
     }
@@ -159,6 +159,10 @@ nav {
 
     .productDescriptionHighlight {
       flex-grow: 1;
+
+      .title {
+        font-size: 1.2rem;
+      }
     }
 
     .priceGroup {
@@ -166,6 +170,10 @@ nav {
       justify-content: center;
       align-items: center;
       gap: 1rem;
+
+      .price {
+        font-size: 1rem;
+      }
     }
   }
 }
@@ -182,6 +190,7 @@ nav {
   .imageGroup {
     img {
       object-fit: contain;
+      border: 1px solid #b7b6b6;
     }
 
     .productGallery {

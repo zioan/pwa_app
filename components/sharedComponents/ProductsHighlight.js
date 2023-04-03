@@ -30,12 +30,12 @@ function ProductsHighlight({ products, showFavourite, removeFromWishlist }) {
                 </div>
                 <div className="productDescriptionHighlight">
                   <Link href={`/products/${product.id}`}>
-                    <h5>{product.title}</h5>
+                    <h5 className="title">{product.title}</h5>
                   </Link>
                   <p>{product.description.substring(0, 20)}...</p>
                 </div>
                 <div className="priceGroup">
-                  <h4>{product.price} &#8364;</h4>
+                  <h4 className="price">{product.price} &#8364;</h4>
                   {showFavourite && (
                     <button
                       onClick={() =>
