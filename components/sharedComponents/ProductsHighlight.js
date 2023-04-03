@@ -32,7 +32,7 @@ function ProductsHighlight({ products, showFavourite, removeFromWishlist }) {
                   <Link href={`/products/${product.id}`}>
                     <h5 className="title">{product.title}</h5>
                   </Link>
-                  <p>{product.description.substring(0, 20)}...</p>
+                  <p>{product.description.substring(0, 30)}</p>
                 </div>
                 <div className="priceGroup">
                   <h4 className="price">{product.price} &#8364;</h4>

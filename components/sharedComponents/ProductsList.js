@@ -75,7 +75,7 @@ function ProductsList({ componentTitle, limit, products }) {
                       <h5 className="card-title">{product.title}</h5>
                       <p className="price">{product.price} &#8364;</p>
                       <p className="description">
-                        {product.description.substring(0, 20)}...
+                        {product.description.substring(0, 30)}
                       </p>
                     </div>
                   </div>
