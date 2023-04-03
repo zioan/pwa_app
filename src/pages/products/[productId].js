@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ProductsContext from "../../../context/ProductsContext";
 import { AiFillHeart } from "react-icons/ai";
 import { addToWishlist } from "../../../helpers/wishlistHelper";
@@ -11,11 +11,14 @@ function Product() {
   const { products } = useContext(ProductsContext);
 
   const [currentImage, setCurrentImage] = useState("");
-  if (!products) return;
 
-  const product = products.find(
+  const product = products?.find(
     (product) => product.id === parseInt(productId)
   );
+
+  useEffect(() => {
+    setCurrentImage(product?.thumbnail);
+  }, [product?.thumbnail]);
 
   if (!product) {
     return <div>No product found</div>;
