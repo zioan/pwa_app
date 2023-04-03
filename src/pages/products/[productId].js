@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import ProductsContext from "../../../context/ProductsContext";
 import { AiFillHeart } from "react-icons/ai";
 import { addToWishlist } from "../../../helpers/wishlistHelper";
@@ -10,6 +10,7 @@ function Product() {
   const { productId } = router.query;
   const { products } = useContext(ProductsContext);
 
+  const [currentImage, setCurrentImage] = useState("");
   if (!products) return;
 
   const product = products.find(
@@ -28,7 +29,7 @@ function Product() {
     <div className="productPage">
       <div className="imageGroup">
         <Image
-          src={product.thumbnail}
+          src={currentImage || product.thumbnail}
           alt={product.title}
           width={450}
           height={450}
@@ -42,6 +43,7 @@ function Product() {
                 alt={product.title}
                 width={80}
                 height={80}
+                onClick={() => setCurrentImage(image)}
               />
             );
           })}

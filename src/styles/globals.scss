@@ -123,8 +123,7 @@ nav {
 
       img {
         margin: 1rem auto 0.5rem;
-        object-fit: cover;
-        object-position: center;
+        object-fit: contain;
       }
 
       .card-body {
@@ -182,8 +181,7 @@ nav {
 
   .imageGroup {
     img {
-      object-fit: cover;
-      object-position: center;
+      object-fit: contain;
     }
 
     .productGallery {
@@ -191,6 +189,10 @@ nav {
       display: flex;
       flex-wrap: wrap;
       gap: 1rem;
+
+      img {
+        cursor: pointer;
+      }
     }
   }
 
